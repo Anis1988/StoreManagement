@@ -33,10 +33,10 @@ namespace StoreManagement
 
             services.AddControllers();
 
-            services.AddDbContextPool<StoreContext>(option => 
+            services.AddDbContext<StoreContext>(option => 
                 option.UseSqlServer(Configuration.GetConnectionString("StoreContextConnectionString")));
 
-            services.AddScoped<IStoreLogic, LogicStore>();
+             services.AddScoped<IStoreLogic, LogicStore>();
                 
 
 
@@ -59,7 +59,7 @@ namespace StoreManagement
             app.UseStatusCodePages();
             app.UseHttpsRedirection();
 
-            app.UseRewriter(new RewriteOptions().AddRedirect("^$", "index.html"));
+            app.UseRewriter(new RewriteOptions().AddRedirect("^$", "login.html"));
 
             app.UseStaticFiles();
 
