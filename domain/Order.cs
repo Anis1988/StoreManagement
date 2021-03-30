@@ -10,7 +10,7 @@ namespace domain
         public Guid OrderId { get; set; } = new Guid();
 
         public Customer Customer { get; set; }
-        public DateTime DateTime { get; set; }
+        public DateTime DateTime { get; set; } = new DateTime();
         public ICollection<Product> Products { get; set; } = new List<Product>();
         public Store Store { get; set; }
     }

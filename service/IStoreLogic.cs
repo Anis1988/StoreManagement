@@ -18,5 +18,6 @@ namespace service
         void deleteCustomer(Guid id);
 
 
+        List<Product> getAllProducts();
     }
 }

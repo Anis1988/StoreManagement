@@ -63,6 +63,11 @@ namespace service
             storeContext.SaveChanges();
         }
 
+        public List<Product> getAllProducts()
+        {
+            return storeContext.Products.ToList();
+        }
+
         public Customer getSingleCustomer(Guid id)
         {
            return storeContext.Customers.FirstOrDefault(c => c.CustomerId == id);

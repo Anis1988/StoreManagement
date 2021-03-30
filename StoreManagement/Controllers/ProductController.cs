@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using domain;
 using Microsoft.AspNetCore.Mvc;
 using service;
 
@@ -16,6 +17,12 @@ namespace StoreManagement.Controllers
         public ProductController(IStoreLogic iStoreLogic)
         {
             this.iStoreLogic = iStoreLogic;
+        }
+
+        [HttpGet]
+        public List<Product> getAllProduct()
+        {
+            return iStoreLogic.getAllProducts();
         }
     }
 }

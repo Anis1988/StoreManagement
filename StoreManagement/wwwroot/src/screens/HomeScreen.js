@@ -1,7 +1,18 @@
-import data from "../data.js";
-var HomeScreen = {
-  render: () => {
-    var { products } = data;
+
+const  HomeScreen = {
+  render: async() => {
+      const response = await fetch("https://localhost:44369/api/product",
+          {
+              headers: {
+                  "Content-Type": "application/json"
+              },
+          });
+        if (!response || !response.ok) {
+            return `<div>Error on getting the data </div>`;
+        }
+    const products  = await response.json();
+    console.log(products);
+    console.log("ANIS");
     return `
         <ul class="products">
         ${products
@@ -9,13 +20,12 @@ var HomeScreen = {
             (product) => `
             <li>
                  <div class="product">
-                <a href="#/product/${product._id}">
-                  <img src="${product.image}" alt="${product.name}" />
+               
+                  <img src="${product.productUrl}" alt="${product.name}" />
                 </a>
                 <div class="product-name">
-                  <a href="#/product/1"> "${product.name}" </a>
-                  <div class="product-brand">"${product.brand}"</div>
-                  <div class="product-price">${product.price}</div>
+                  <span> "${product.name}" </span>
+                  <div class="product-price">${product.unitPrice}$</div>
                 </div>
               </div>
             </li>

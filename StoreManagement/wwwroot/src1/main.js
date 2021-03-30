@@ -60,7 +60,6 @@ document.addEventListener("DOMContentLoaded", () => {
           console.log("-----------------------------");
           console.log(userExist2(pass));
           console.log(pass);
-          console.log(customers);
           setFormMessage(loginForm, "error", "Invalid username/password combination");
       }
   });
@@ -145,6 +144,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(data)
-            }).then(res => res.json()).then(console.log("success: ", data)).catch(err => console.log("error", err));
+            }).then(res => res.json()).catch(err => console.log("error", err));
     });
 });
