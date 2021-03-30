@@ -42,7 +42,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   let customers = [];
-  fetch("https://localhost:44369/api/customer").then(res => res.json().then(res => (customers = res)));
+    fetch("https://localhost:44369/api/customer").then(res => res.json().then(res => {
+        customers = res;
+       
+        
+    }));
   loginForm.addEventListener("submit", (e) => {
       
     e.preventDefault();
@@ -50,10 +54,25 @@ document.addEventListener("DOMContentLoaded", () => {
    
     let mail = document.getElementById("mail").value.trim();
     let pass = document.getElementById("pass").value;
-    
+        
+    for (var i = 0; i < customers.length; i++) {
+        if (customers[i].userName === mail && customers[i].password === pass) {
+            localStorage.setItem("custId",customers[i].firstName);
+            sessionStorage.setItem("custId",customers[i].firstName);
+            console.log("Success");
+            location = "src/index.html";
+        } else {
+            console.log("Error");
+            setFormMessage(loginForm, "error", "Invalid username/password combination");
+        }
+
+    }
       
-      if (userExist(mail) && userExist2(pass)) {
-          window.location.href = "src/index.html";
+     /* if (userExist(mail) && userExist2(pass)) {
+          
+          localStorage.setItem("custId",customers.customerId);
+          sessionStorage.setItem("custId",customers.customerId);
+          location = "src/index.html";
       } else {
           console.log(userExist(mail));
           console.log(mail);
@@ -62,6 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
           console.log(pass);
           setFormMessage(loginForm, "error", "Invalid username/password combination");
       }
+      */
   });
 
   function userExist(test) {
