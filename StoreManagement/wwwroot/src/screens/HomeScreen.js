@@ -23,13 +23,12 @@ const  HomeScreen = {
         return `
         <ul class="products">
         ${products
-            .map((product) => 
+            .map((product) =>
 
-                    ` <li>
+                ` <li>
                  <div class="product">
                
                   <img src="${product.productUrl}" alt="${product.name}" />
-                
                 <div class="product-name">
                   <span> ${product.name} </span>
                   <div class="product-price">${formatter.format(product.unitPrice)}</div>

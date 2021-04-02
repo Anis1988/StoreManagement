@@ -20,5 +20,6 @@ namespace service
         List<Order> getAllOrder();
         Product getSingleProducts(Guid id);
         Store getSingleStore(string name);
+        void reduceCount(Product product);
     }
 }

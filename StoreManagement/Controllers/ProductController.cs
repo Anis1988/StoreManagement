@@ -24,7 +24,7 @@ namespace StoreManagement.Controllers
         {
             return iStoreLogic.getAllProducts();
         }
-        [HttpGet("/{id}")]
+        [HttpGet("{id}")]
         public IActionResult getAllProduct(Guid id)
         {
             var product = iStoreLogic.getSingleProducts(id);
@@ -34,6 +34,21 @@ namespace StoreManagement.Controllers
             }
 
             return Ok(iStoreLogic.getSingleProducts(id));
+        }
+        [HttpPatch("update/{id}")]
+        public IActionResult updateProduct(Product product, Guid id)
+        {
+            var exisitingProduct = iStoreLogic.getSingleProducts(id);
+
+            if (exisitingProduct != null)
+            {
+                product.ProductId = exisitingProduct.ProductId;
+                iStoreLogic.reduceCount(product);
+
+                return Ok();
+            }
+
+            return NotFound("No Product found to edit with this ID " + id);
         }
     }
 }
