@@ -1,13 +1,15 @@
 * {
   box-sizing: border-box;
+
 }
 html {
   font-size: 62.5%; /* 16px * 62.5 = 10px = 1rem */
 }
 body {
-  height: 100vh;
-  font: 1.6rem Helvetica, Arial;
-  margin: 0;
+    height: 100vh;
+    font: 1.6rem Helvetica, Arial;
+    margin: 0;
+    background-color: #ECEEF0
 }
 a {
   color: #000000;
@@ -88,6 +90,7 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem;
+   
 }
 header a {
   color: #ffffff;
@@ -455,4 +458,12 @@ td {
 }
 .charts > div {
   flex: 1;
+}
+#nav {
+    display: flex;
+    align-content: center;
+    align-items: center
+}
+#history {
+    margin-right: 10%; 
 }

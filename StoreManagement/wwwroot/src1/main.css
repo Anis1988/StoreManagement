@@ -127,3 +127,11 @@
     .form__link:hover {
         text-decoration: underline;
     }
+
+.selectForm {
+    align-content: center;
+    margin: 15px;
+}
+#option {
+    width: 360px
+}

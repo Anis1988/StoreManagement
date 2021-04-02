@@ -24,6 +24,11 @@ namespace StoreManagement.Controllers
         [Route("api/[controller]/{id}")]
         public IActionResult getSingle(Guid id)
         {
+            var customer = iStoreLogic.getSingleCustomer(id);
+            if (customer == null)
+            {
+                return NotFound("Sorry couldn't found the customer with the id: " + id);
+            }
             return Ok(iStoreLogic.getSingleCustomer(id));
         }
 
@@ -48,6 +53,11 @@ namespace StoreManagement.Controllers
         [Route("api/[controller]/delete/{id}")]
         public IActionResult deleteCustomer(Guid id)
         {
+            Customer customer = iStoreLogic.getSingleCustomer(id);
+            if (customer == null)
+            {
+                return NotFound("Sorry couldn't found the customer with the id: " + id);
+            }
             iStoreLogic.deleteCustomer(id);
             return Ok();
         }

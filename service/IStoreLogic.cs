@@ -8,16 +8,17 @@ namespace service
     {
 
         Customer getSingleCustomer(Guid id);
-        void addCustomer(Customer customer);
+        Customer addCustomer(Customer customer);
         Order getCustomerOrder(string name);
         List<Store> getALlStores();
         List<Customer> getAllCustomers();
-        
         List<Order> getAllOrder( string locationName);
         List<Order> getAllOrder(string name, string locationName);
         void deleteCustomer(Guid id);
-
-
         List<Product> getAllProducts();
+        void addProductToAcustomer(Order order);
+        List<Order> getAllOrder();
+        Product getSingleProducts(Guid id);
+        Store getSingleStore(string name);
     }
 }

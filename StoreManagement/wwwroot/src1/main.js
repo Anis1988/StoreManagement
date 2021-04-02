@@ -44,22 +44,26 @@ document.addEventListener("DOMContentLoaded", () => {
   let customers = [];
     fetch("https://localhost:44369/api/customer").then(res => res.json().then(res => {
         customers = res;
-       
-        
+
     }));
   loginForm.addEventListener("submit", (e) => {
       
     e.preventDefault();
-    
-   
+    clickStore();
+
     let mail = document.getElementById("mail").value.trim();
     let pass = document.getElementById("pass").value;
         
     for (var i = 0; i < customers.length; i++) {
         if (customers[i].userName === mail && customers[i].password === pass) {
-            localStorage.setItem("custId",customers[i].firstName);
-            sessionStorage.setItem("custId",customers[i].firstName);
-            console.log("Success");
+            console.log(1234);
+
+            localStorage.setItem("custf",customers[i].firstName);
+            localStorage.setItem("custl",customers[i].lastName);
+            localStorage.setItem("id",customers[i].customerId);
+            
+            
+
             location = "src/index.html";
         } else {
             console.log("Error");
@@ -67,34 +71,8 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
     }
-      
-     /* if (userExist(mail) && userExist2(pass)) {
-          
-          localStorage.setItem("custId",customers.customerId);
-          sessionStorage.setItem("custId",customers.customerId);
-          location = "src/index.html";
-      } else {
-          console.log(userExist(mail));
-          console.log(mail);
-          console.log("-----------------------------");
-          console.log(userExist2(pass));
-          console.log(pass);
-          setFormMessage(loginForm, "error", "Invalid username/password combination");
-      }
-      */
+  
   });
-
-  function userExist(test) {
-      return customers.some((el) => {
-          return el.userName === test;
-      });
-  }
-  function userExist2(test) {
-      return customers.some((el) => {
-          return el.password === test;
-
-      });
-  }
 
   document.querySelectorAll(".form__input").forEach((inputElement) => {
       inputElement.addEventListener("blur", (e) => {
@@ -107,16 +85,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 inputElement,
                 "Username must be at least 10 characters in length"
             );
-        } if (e.target.id === "signupFirstName"  && e.target.value.length < 5 && e.target.value.length > 2 ) {
-            setInputError(inputElement, "First Name must be at lease 2 chars and no more than 50 and not blank");
+        } if (e.target.id === "signupFirstName"  && e.target.value.length < 5  ) {
+            setInputError(inputElement, "First Name must be at lease 5 chars and no more than 50 and not blank");
         }
-        if (e.target.id === "signupLastName"  && e.target.value.length < 5 && e.target.value.length > 2 ) {
-            setInputError(inputElement, "Last Name must be at lease 2 chars and no more than 50 and not blank");
+        if (e.target.id === "signupLastName"  && e.target.value.length < 5  ) {
+            setInputError(inputElement, "Last Name must be at lease 5 chars and no more than 50 and not blank");
         }
-        if (e.target.id === "signupEmail"  && e.target.type !=="email") {
-            setInputError(inputElement, "First Name must be at lease 2 chars and no more than 50 and not blank");
+        if (e.target.id === "signupEmail"  && e.target.type !=="email" && e.target.value.length < 10) {
+            setInputError(inputElement, "First Name must be at lease 10 chars and no more than 50 and not blank");
         }
-        if (e.target.id === "signupPassword"  && e.target.value.length < 12  ) {
+        if (e.target.id === "signupPassword"  && e.target.value.length < 8 ) {
             setInputError(inputElement, "Password must be at lease 12 chars");
         }
     });
@@ -150,11 +128,11 @@ document.addEventListener("DOMContentLoaded", () => {
     
         const data = {
 
-            "FirstName": document.getElementById("signupFirstName").value,
-            "LastName": document.getElementById("signupLastName").value,
-            "UserName": document.getElementById("signupUsername").value,
-            "Email": document.getElementById("signupEmail").value,
-            "Password": document.getElementById("signupPassword").value,
+            "FirstName": document.getElementById("signupFirstName").value.trim(),
+            "LastName": document.getElementById("signupLastName").value.trim(),
+            "UserName": document.getElementById("signupUsername").value.trim(),
+            "Email": document.getElementById("signupEmail").value.trim(),
+            "Password": document.getElementById("signupPassword").value.trim(),
         }
 
         fetch("https://localhost:44369/api/customer",
@@ -167,3 +145,44 @@ document.addEventListener("DOMContentLoaded", () => {
             }).then(res => res.json()).catch(err => console.log("error", err));
     });
 });
+
+
+async function fetchStores() {
+    
+    try {
+        let res = await fetch("https://localhost:44369/api/store");
+        return await res.json();
+    } catch (err) {
+        console.log(err);
+    }
+}
+const arra = [];
+async function renderStores() {
+    
+    const stores = await fetchStores();
+    stores.forEach(user => arra.push(user.locationName));
+    console.log(arra);
+}
+
+renderStores();
+
+var select = document.getElementById("stores"), arr = ["North Carolina", "Texas", "Florida", "Mississippi", "Pennsylvania", "Colorado", "Missouri", 
+                                                    "North Dakota", "Virginia", "New Jersey", "Maryland", "New Jersey", "Oklahoma", "Florida", 
+                                                    "California", "Wisconsin", "Georgia", "Arizona", "New York", "Missouri", "Texas"]
+for (var i = 0; i < arr.length; i++) {
+    var option = document.createElement("OPTION"),
+        txt = document.createTextNode(arr[i]);
+    option.appendChild(txt);
+    option.setAttribute("value", arr[i]);
+    select.insertBefore(option, select.lastChild);
+
+}
+
+function clickStore() {
+    const e = document.getElementById("stores")
+    var storeChosen = e.options[e.selectedIndex].text;
+    localStorage.setItem("store", storeChosen);
+}
+
+
+

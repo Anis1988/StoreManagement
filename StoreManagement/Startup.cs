@@ -33,11 +33,21 @@ namespace StoreManagement
 
             services.AddControllers();
 
-            services.AddDbContext<StoreContext>(option => 
-                option.UseSqlServer(Configuration.GetConnectionString("StoreContextConnectionString")));
+            services.AddDbContext<StoreContext>(option =>
+            {
+                if (!option.IsConfigured)
+                {
+                    option.UseSqlServer(Configuration.GetConnectionString("StoreContextConnectionString"));
+                }
+            });
+                
 
              services.AddScoped<IStoreLogic, LogicStore>();
-                
+
+             services.AddControllersWithViews()
+                 .AddNewtonsoftJson(options =>
+                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                 );
 
 
             services.AddSwaggerGen(c =>

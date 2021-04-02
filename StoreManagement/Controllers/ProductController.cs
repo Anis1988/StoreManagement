@@ -24,5 +24,16 @@ namespace StoreManagement.Controllers
         {
             return iStoreLogic.getAllProducts();
         }
+        [HttpGet("/{id}")]
+        public IActionResult getAllProduct(Guid id)
+        {
+            var product = iStoreLogic.getSingleProducts(id);
+            if (product == null)
+            {
+                return NotFound("Sorry couldn't found the product with Id: " + id);
+            }
+
+            return Ok(iStoreLogic.getSingleProducts(id));
+        }
     }
 }

@@ -27,5 +27,16 @@ namespace StoreManagement.Controllers
         {
             return Ok(iStoreLogic.getALlStores().ToList());
         }
+        [HttpGet("{name}")]
+        
+        public IActionResult getSingle(string name)
+        {
+            var store = iStoreLogic.getSingleStore(name);
+            if (store == null)
+            {
+                return NotFound("Sorry couldn't found the store you are looking for with the Name: " + name);
+            }
+            return Ok(iStoreLogic.getSingleStore(name));
+        }
     }
 }
