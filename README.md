@@ -14,6 +14,6 @@ you can select a particular item and added to the list
 * CSS
 
 ## Improvement 
-Better page for check out 
-ability to decrease the inventory when an item is pruchased 
+* Better page for check out 
+* Ability to decrease the inventory when an item is pruchased 
 
